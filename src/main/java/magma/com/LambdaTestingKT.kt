@@ -1,7 +1,9 @@
 package magma.com
 
-class LambdaTestingKT {
-    fun init(){
+import java.io.PrintStream
+
+object LambdaTestingKT {
+    fun init(logger: PrintStream){
 
     }
 }
