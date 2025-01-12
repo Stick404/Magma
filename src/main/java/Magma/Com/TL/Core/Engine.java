@@ -11,6 +11,7 @@ public class Engine {
 
     public static final String VERSION = "0.1-Stickia";
 
+    //converts an object into an Atom readable by the Interpreter
     public static TLAtomExpression<?> expressionOf(Object value) {
         if (value == null) {
             return TLJavaObjectExpression.of(null);
@@ -21,11 +22,13 @@ public class Engine {
         }
     }
 
+    //the most basic requirements for an Expression
     public interface TLExpression {
         Object getValue();
         boolean asBoolean();
     }
 
+    //returns basic Ops/Funcs
     public TLEnvironment defaultEnvironment() {
         final TLEnvironment environment = new TLEnvironment();
         for(Map.Entry<String, TLFunction> entry : FUNCS.entrySet()) {
@@ -34,37 +37,39 @@ public class Engine {
         return environment;
     }
 
+    //runs a function in an environment and engine
     public TLExpression apply(TLFunction function, TLListExpression arguments, TLEnvironment environment, Engine engine) throws Exception {
         return function.invoke(arguments, environment, engine);
     }
 
+    //the main brain, see comments inside
     public TLExpression evaluate(TLExpression object, TLEnvironment environment) throws Exception {
-        if (object instanceof TLSymbolExpression symbol) {
+        if (object instanceof TLSymbolExpression symbol) { //if it is a symbol, return its value
             TLExpression result = environment.get(symbol);
             if (result == null) {
                 throw new RuntimeException("Symbol undefined: " + symbol);
             }
             return result;
         } else if (object instanceof TLAtomExpression) {
-            return object;
+            return object; //if an atom, nothing needs to be done with it; return it
         } else if (object instanceof TLListExpression expression) {
-            if (expression.isEmpty()) {
+            if (expression.isEmpty()) { //return a blank expression if its empty
                 // Empty list is nil/false
                 return expression;
             }
             // The first item in a list must be a symbol
             TLExpression first = expression.get(0);
             if (EXPRES.containsKey(first.getValue())) {
-                return EXPRES.get(first.toString()).invoke(expression,environment,this);
+                return EXPRES.get(first.toString()).invoke(expression,environment,this); //get value of the expression from the key
             } else {
                 // First item wasn't a special form so it must evaluate to a function
-                TLFunction function = (TLFunction) evaluate(first, environment);
-                TLListExpression args = new TLListExpression();
-                for (TLExpression exp : expression.subList(1, expression.size())) {
+                TLFunction function = (TLFunction) evaluate(first, environment); //gets the symbol of the function
+                TLListExpression args = new TLListExpression(); //sets up the possible args
+                for (TLExpression exp : expression.subList(1, expression.size())) { //evaluate sub lists for the function, adding them to args
                     args.add(evaluate(exp, environment));
                 }
                 try {
-                    return apply(function, args, environment, this);
+                    return apply(function, args, environment, this); //try to run the function
                 } catch (IllegalArgumentException | IndexOutOfBoundsException ex) {
                     throw new TLRuntimeException(first + ": " + function + "\n" + ex, ex);
                 }
@@ -73,9 +78,11 @@ public class Engine {
             throw new IllegalArgumentException("Can't evaluate " + object);
         }
     }
+    //Past here, my knowledge drops off. But I will still try to comment
 
+    //converts a string into an expression/runnable code
     public TLExpression parse(String input) {
-        ArrayList<String> tokens = tokenize(input);
+        ArrayList<String> tokens = tokenize(input); //converts the string into tokens
         TLExpression expression = readTokens(tokens);
         if (tokens.isEmpty()) {
             return expression;
@@ -90,35 +97,36 @@ public class Engine {
         }
     }
 
+    //converts tokens into runnable code by converting punctuation into "real code"
     private TLExpression readTokens(ArrayList<String> tokens) {
         String token = popToNext(tokens);
         tokens.remove(0);
         switch (token) {
-            case "(": {
-                TLListExpression expression = new TLListExpression();
+            case "(": { //while we are still making an expression...
+                TLListExpression expression = new TLListExpression(); //start building the expression
                 while (!")".equals(popToNext(tokens))) {
-                    expression.add(readTokens(tokens));
+                    expression.add(readTokens(tokens)); //finish up and add the last token
                 }
                 tokens.remove(0);
                 return expression;
             }
             case "[":
                 List<Object> values = new ArrayList<>();
-                while (!"]".equals(popToNext(tokens))) {
+                while (!"]".equals(popToNext(tokens))) { //while we are still making an array...
                     // Arrays can only contain atoms
                     TLAtomExpression<?> atom = (TLAtomExpression<?>) readTokens(tokens);
                     values.add(atom.getValue());
                 }
                 tokens.remove(0);
-                return TLArrayExpression.from(values);
+                return TLArrayExpression.from(values); //return array
             case "\"":
                 String string = tokens.remove(0);
                 tokens.remove(0);
                 return TLJavaObjectExpression.of(string);
             case "'": {
-                TLListExpression expression = new TLListExpression();
-                expression.add(atomize("quote"));
-                expression.add(readTokens(tokens));
+                TLListExpression expression = new TLListExpression(); //start expression
+                expression.add(atomize("quote")); //add the expression "quote" to the start of the expression
+                expression.add(readTokens(tokens)); //add the rest of the tokens to this
                 return expression;
             }
             default:
@@ -126,6 +134,7 @@ public class Engine {
         }
     }
 
+    //gets the next token needed
     private String popToNext(ArrayList<String> tokens) {
         if (tokens.isEmpty()) {
             throw new IllegalArgumentException("End of token list");
@@ -142,8 +151,10 @@ public class Engine {
         }
     }
 
+    //converts a basic token into an expression
     private TLExpression atomize(String token) {
-        try {
+        try { //Stickia here, I would like to say I did not write any of this parsing code
+              //may Linus have blessing on your soul
             return TLJavaObjectExpression.of(Integer.parseInt(token));
         } catch (NumberFormatException ex) {
             // Not an int
@@ -154,63 +165,65 @@ public class Engine {
             // Not a double
         }
         if ("null".equals(token)) {
-            return TLJavaObjectExpression.of(null);
+            return TLJavaObjectExpression.of(null); //if the token is null, return a Java Object Atom of null
         } else if ("true".equals(token)) {
-            return TLJavaObjectExpression.of(true);
+            return TLJavaObjectExpression.of(true); //if the token is false, return a Java Object Atom of false
         } else if ("false".equals(token)) {
-            return TLJavaObjectExpression.of(false);
+            return TLJavaObjectExpression.of(false); //if the token is true, return a Java Object Atom of true
         } else {
-            return TLSymbolExpression.of(token);
+            return TLSymbolExpression.of(token); //else, just make it a symbol
         }
     }
 
+    // the main string -> Array<String>
     public ArrayList<String> tokenize(String input) {
         ArrayList<String> tokens = new ArrayList<>();
         StringBuilder token = new StringBuilder();
         boolean inString = false;
         boolean inComment = false;
-        for (int i = 0; i < input.length(); i++) {
+        for (int i = 0; i < input.length(); i++) { //for every character
             char c = input.charAt(i);
-            if (inString) {
-                if (c == '"') {
+            if (inString) { //if we are in a string...
+                if (c == '"') { //stop putting it inside a string
                     inString = false;
-                    tokens.add(token.toString());
-                    token = new StringBuilder();
+                    tokens.add(token.toString()); //convert this to a string, and add it to tokens
+                    token = new StringBuilder(); //and start the next token
                     tokens.add(String.valueOf(c));
-                } else if (c == '\\') {
+                } else if (c == '\\') { //put the exact char next char over
                     token.append(input.charAt(++i));
-                } else {
+                } else { //add it
                     token.append(c);
                 }
-            } else if (inComment) {
-                if (c == '\n' || i == input.length() - 1) {
+            } else if (inComment) { //if we are in a comment...
+                if (c == '\n' || i == input.length() - 1) { //stop putting it inside a comment
                     inComment = false;
                     token.append(c);
-                    tokens.add(token.toString());
-                    token = new StringBuilder();
+                    tokens.add(token.toString()); //convert this to a string, and add it to tokens
+                    token = new StringBuilder(); //and start the next token
                 } else {
-                    token.append(c);
+                    token.append(c); //add it
                 }
-            } else {
-                if (isBreakingChar(c)) {
+            } else { //if we are not in a comment/string then...
+                if (isBreakingChar(c)) { //if we are in a breaking character
                     if (!token.isEmpty()) {
-                        tokens.add(token.toString());
-                        token = new StringBuilder();
+                        tokens.add(token.toString()); //convert this to a string, and add it to tokens
+                        token = new StringBuilder(); //and start the next token
                     }
                     tokens.add(String.valueOf(c));
-                    inString = c == '"';
-                    inComment = c == ';';
+                    inString = c == '"'; //we are in a string
+                    inComment = c == ';'; //we are in a comment
                 } else {
-                    token.append(c);
+                    token.append(c); //add to current builder
                 }
             }
         }
         if (!token.isEmpty()) {
-            tokens.add(token.toString());
+            tokens.add(token.toString()); //add current token to string
         }
         return tokens;
     }
 
+    //the main entrance system
     public TLExpression execute(String program, TLEnvironment environment) throws Exception {
         return evaluate(parse(program), environment);
     }
@@ -249,6 +262,7 @@ public class Engine {
         }
     }
 
+    //used in Serializing running functions into a string. Which can be turned back into functions.
     static String listToString(String prefix, Iterable<?> items, String delimiter, String suffix) {
         StringBuilder builder = new StringBuilder(prefix);
         for (Object item : items) {
@@ -261,6 +275,7 @@ public class Engine {
         return builder.toString();
     }
 
+    //converts a Number into a BigDecimal
     public static BigDecimal toBigDecimal(Number value) {
         if (value instanceof Double) {
             return BigDecimal.valueOf(value.doubleValue());
@@ -273,6 +288,7 @@ public class Engine {
         }
     }
 
+    //converts a BigDecimal into a Number
     public static Number reduceBigDecimal(BigDecimal value) {
         if (value.signum() == 0 || value.scale() <= 0 || value.stripTrailingZeros().scale() <= 0) {
             try {
