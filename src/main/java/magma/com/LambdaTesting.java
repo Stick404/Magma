@@ -1,16 +1,11 @@
 package magma.com;
 
 import magma.com.TL.Core.Engine;
-import magma.com.TL.Core.TLEnvironment;
-import magma.com.TL.Core.TLListExpression;
-import magma.com.TL.Functions.BaseFunctions.FunNumberMath;
-
-import java.lang.reflect.*;
+import magma.com.TL.Core.TL_OLD.TLEnvironment;
+import magma.com.TL.Core.TL_OLD.TLListExpression;
 
 import java.io.PrintStream;
 import java.math.BigInteger;
-import java.util.Objects;
-import java.util.function.*;
 
 import static magma.com.TL.Core.Engine.expressionOf;
 
@@ -29,7 +24,7 @@ public class LambdaTesting {
         System.out.println((endTime - startTime)/1000000);
         //System.out.println(result);
         startTime = System.nanoTime();
-        BigInteger resultBounce = factorial(BigInteger.valueOf(10000),BigInteger.valueOf(1)).get(); //can be as big as wanted
+        //BigInteger resultBounce = factorial(BigInteger.valueOf(100000),BigInteger.valueOf(1)).get(); //can be as big as wanted
         endTime = System.nanoTime();
         System.out.println((endTime - startTime)/1000000);
         //System.out.println(resultBounce);

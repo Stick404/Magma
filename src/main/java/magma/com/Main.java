@@ -1,7 +1,7 @@
 package magma.com;
 
 import magma.com.TL.Core.Engine;
-import magma.com.TL.Core.TLEnvironment;
+import magma.com.TL.Core.TL_OLD.TLEnvironment;
 
 import java.io.PrintStream;
 
@@ -23,7 +23,7 @@ public class Main {
         LambdaTesting.init(logger);
         LambdaTestingKT.INSTANCE.init(logger);
 
-        /*
+
             logger.println("I am a line break!");
             logger.println(engine.execute("(+ 1 1)", env).getValue());
             logger.println(engine.execute("(+ 2 1)", env).getValue());
@@ -81,14 +81,17 @@ public class Main {
             //engine.execute("(defun aaa (&optional (n 5)) (if (print (zerop n)) null (cons n (aaa (print (+ 0 0))))))",env);
             //engine.execute("(print (aaa 0))",env);
             engine.execute("(print 'HIII)",env);
+            engine.execute("(print \"hello world\")",env);
             engine.execute("(print (print (zerop 1)))",env);
             engine.execute("(print (print (zerop 0)))",env); //(print (+ 0 0)
             engine.execute("(let* ((n 1) (b 2)) (print (+ b n)))",env);
+
+            logger.println(engine.tokenize("(+ 1 1)"));
+            logger.println(engine.tokenize("(let* ((n 1) (b 2)) (print (+ b n)))"));
             //engine.execute("(print (zerop (+ 0 0))))",env);
 
             //the graveyard of recursion, zerop, and default
             //this has brought me much pain
-        */
         //engine.execute("(def fact (lambda (n) (if (<= n 1) 1 (* n (fact (- n 1))))))",env);
         //engine.execute("(print (fact 420))",env); //so this doesn't fail due to any code reason; just the Java Stack overflows...
     }

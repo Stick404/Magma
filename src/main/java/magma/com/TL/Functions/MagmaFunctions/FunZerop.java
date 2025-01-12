@@ -1,9 +1,9 @@
 package magma.com.TL.Functions.MagmaFunctions;
 
 import magma.com.TL.Core.Engine;
-import magma.com.TL.Core.TLEnvironment;
-import magma.com.TL.Core.TLFunction;
-import magma.com.TL.Core.TLListExpression;
+import magma.com.TL.Core.TL_OLD.TLEnvironment;
+import magma.com.TL.Core.TL_OLD.TLFunction;
+import magma.com.TL.Core.TL_OLD.TLListExpression;
 
 import static magma.com.TL.Core.Engine.expressionOf;
 

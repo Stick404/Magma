@@ -1,6 +1,9 @@
 package magma.com.TL.Functions.MagmaFunctions;
 
 import magma.com.TL.Core.*;
+import magma.com.TL.Core.TL_OLD.TLEnvironment;
+import magma.com.TL.Core.TL_OLD.TLFunction;
+import magma.com.TL.Core.TL_OLD.TLListExpression;
 
 import java.util.Collections;
 import java.util.List;

@@ -1,9 +1,9 @@
 package magma.com.TL.Functions.BaseFunctions.Eval;
 
 import magma.com.TL.Core.Engine;
-import magma.com.TL.Core.TLEnvironment;
-import magma.com.TL.Core.TLFunction;
-import magma.com.TL.Core.TLListExpression;
+import magma.com.TL.Core.TL_OLD.TLEnvironment;
+import magma.com.TL.Core.TL_OLD.TLFunction;
+import magma.com.TL.Core.TL_OLD.TLListExpression;
 
 public class FunApply extends TLFunction {
     Engine engine = new Engine();

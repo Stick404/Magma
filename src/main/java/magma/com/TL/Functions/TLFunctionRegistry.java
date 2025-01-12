@@ -1,6 +1,6 @@
 package magma.com.TL.Functions;
 
-import magma.com.TL.Core.TLFunction;
+import magma.com.TL.Core.TL_OLD.TLFunction;
 import magma.com.TL.Functions.BaseFunctions.*;
 import magma.com.TL.Functions.BaseFunctions.Eval.FunEval;
 import magma.com.TL.Functions.BaseFunctions.Eval.FunMap;

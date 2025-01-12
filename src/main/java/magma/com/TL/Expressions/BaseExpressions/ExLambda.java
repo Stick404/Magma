@@ -1,8 +1,9 @@
 package magma.com.TL.Expressions.BaseExpressions;
 
 import magma.com.TL.Core.*;
+import magma.com.TL.Core.TL_OLD.*;
 
-public class ExLambda extends TLExpression {
+public class ExLambda extends TLExpressions {
     @Override
     public Engine.TLExpression invoke(TLListExpression expression, TLEnvironment environment, Engine engine) throws Exception {
         TLListExpression params = (TLListExpression) expression.get(1);

@@ -1,8 +1,9 @@
 package magma.com.TL.Expressions.MagmaExpressions;
 
 import magma.com.TL.Core.*;
+import magma.com.TL.Core.TL_OLD.*;
 
-public class ExDefun extends TLExpression {
+public class ExDefun extends TLExpressions {
     @Override
     public Engine.TLExpression invoke(TLListExpression expression, TLEnvironment environment, Engine engine) throws Exception {
         TLSymbolExpression name = (TLSymbolExpression) expression.get(1);

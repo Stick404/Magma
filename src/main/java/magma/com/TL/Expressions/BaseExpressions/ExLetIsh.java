@@ -1,8 +1,12 @@
 package magma.com.TL.Expressions.BaseExpressions;
 
 import magma.com.TL.Core.*;
+import magma.com.TL.Core.TL_OLD.TLEnvironment;
+import magma.com.TL.Core.TL_OLD.TLExpressions;
+import magma.com.TL.Core.TL_OLD.TLListExpression;
+import magma.com.TL.Core.TL_OLD.TLSymbolExpression;
 
-public class ExLetIsh extends TLExpression {
+public class ExLetIsh extends TLExpressions {
     @Override
     public Engine.TLExpression invoke(TLListExpression expression, TLEnvironment environment, Engine engine) throws Exception {
         TLListExpression defs = (TLListExpression) expression.get(1);

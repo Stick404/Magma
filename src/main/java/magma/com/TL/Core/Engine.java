@@ -1,5 +1,7 @@
 package magma.com.TL.Core;
 
+import magma.com.TL.Core.TL_OLD.*;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
@@ -10,6 +12,19 @@ import static magma.com.TL.Functions.TLFunctionRegistry.FUNCS;
 public class Engine {
 
     public static final String VERSION = "0.1-Stickia";
+
+    //TODO: Rework all expressions/atoms/classes to be cleaned to work with new Args system
+    //TODO: Implement and work on new Args system (based on Hex Casting's args.get)
+
+    /* TODO: types to reimplement
+     * Objects (Arbitrary Java Objects; may use <T> system to make it more readable)
+     * Lambdas/Functions (Functions are just Lambdas saved in the Env)
+     * Numbers (Floats, Ints, Longs, etc)
+     * Arrays (might still be useful...)
+     * Symbols (make them hold data rather then being place holders (or optional both?))
+     *
+    */
+
 
     //converts an object into an Atom readable by the Interpreter
     public static TLAtomExpression<?> expressionOf(Object value) {
@@ -242,7 +257,7 @@ public class Engine {
         return c == '(' || c == ')' || c == '[' || c == ']' || c == '\'' || c == '"' || c == ';' || Character.isWhitespace(c);
     }
 
-    static String escapeString(String str) {
+    public static String escapeString(String str) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
@@ -263,7 +278,7 @@ public class Engine {
     }
 
     //used in Serializing running functions into a string. Which can be turned back into functions.
-    static String listToString(String prefix, Iterable<?> items, String delimiter, String suffix) {
+    public static String listToString(String prefix, Iterable<?> items, String delimiter, String suffix) {
         StringBuilder builder = new StringBuilder(prefix);
         for (Object item : items) {
             builder.append(item).append(delimiter);
