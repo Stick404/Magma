@@ -55,11 +55,11 @@ public class TLLambdaFunction extends TLFunction {
                     arg = expressionOf(null);
                 }
             } else {
-                System.out.println(argSize);
-                System.out.println(i);
-                System.out.println(args.size() <= i);
-                System.out.println(paramsOptional != null);
-                System.out.println(args.size() >= paramsOG.size());
+                //System.out.println(argSize);
+                //System.out.println(i);
+                //System.out.println(args.size() <= i);
+                //System.out.println(paramsOptional != null);
+                //System.out.println(args.size() >= paramsOG.size());
                 result = (TLSymbolExpression) param;
                 arg = args.get(i);
             }
