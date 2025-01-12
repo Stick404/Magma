@@ -1,4 +1,4 @@
-package Magma.Com.TL.Functions;
+package Magma.Com.TL.Functions.MagmaFunctions;
 
 import Magma.Com.TL.Core.Engine;
 import Magma.Com.TL.Core.TLEnvironment;

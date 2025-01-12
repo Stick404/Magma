@@ -2,6 +2,9 @@ package Magma.Com.TL.Expressions;
 
 import Magma.Com.TL.Core.TLExpression;
 import Magma.Com.TL.Expressions.BaseExpressions.*;
+import Magma.Com.TL.Expressions.MagmaExpressions.ExDefun;
+import Magma.Com.TL.Expressions.MagmaExpressions.ExNull;
+import Magma.Com.TL.Expressions.MagmaExpressions.ExOptional;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -22,6 +25,7 @@ public class TLExpressionRegistry {
     //custom Exs
     public static final TLExpression DEFUN = make("defun", new ExDefun());
     public static final TLExpression OPTIONAL = make("&optional", new ExOptional());
+    public static final TLExpression NULL = make("null", new ExNull());
 
     private static TLExpression make(String symbol, TLExpression exps) {
         EXPRES.put(symbol,exps);
@@ -33,3 +37,4 @@ public class TLExpressionRegistry {
         return EXPRES.get(copy);
     }
 }
+

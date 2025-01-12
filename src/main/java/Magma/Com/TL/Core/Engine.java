@@ -54,7 +54,7 @@ public class Engine {
             }
             // The first item in a list must be a symbol
             TLExpression first = expression.get(0);
-            if (EXPRES.containsKey(first.getValue().toString())) {
+            if (EXPRES.containsKey(first.getValue())) {
                 return EXPRES.get(first.toString()).invoke(expression,environment,this);
             } else {
                 // First item wasn't a special form so it must evaluate to a function

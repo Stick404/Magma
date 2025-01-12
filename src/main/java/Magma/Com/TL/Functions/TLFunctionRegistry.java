@@ -6,6 +6,8 @@ import Magma.Com.TL.Functions.BaseFunctions.Eval.FunEval;
 import Magma.Com.TL.Functions.BaseFunctions.Eval.FunMap;
 import Magma.Com.TL.Functions.BaseFunctions.Eval.FunParse;
 import Magma.Com.TL.Functions.BaseFunctions.List.*;
+import Magma.Com.TL.Functions.MagmaFunctions.FunPrint;
+import Magma.Com.TL.Functions.MagmaFunctions.FunZerop;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
@@ -30,6 +32,8 @@ public class TLFunctionRegistry {
     public static final TLFunction EQUAL = make("=", new FunEqual());
     public static final TLFunction EQUAL2 = make("is", "=");
     public static final TLFunction EQUAL3 = make("eq", "=");
+
+    public static final TLFunction ZEROP = make("zerop",new FunZerop());
 
     //List stuff
     public static final TLFunction CDR = make("cdr",new FunCdr());
