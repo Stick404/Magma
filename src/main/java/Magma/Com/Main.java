@@ -12,6 +12,8 @@ public class Main {
 
         // TODO: Make ExLambda work with optional values [Like (a 1) and b ]
         // TODO: Add in more Lisp Functions
+        // I know this is really, *really* bad, but this works to test stuff
+        // and I know Tests exist
 
         TLEnvironment env = engine.defaultEnvironment();
         logger.println("I am a line break!");
@@ -30,7 +32,8 @@ public class Main {
         logger.println(engine.execute("(/ 2 2 2)", env).getValue());
         logger.println(engine.execute("(/ 2 2 2 2)", env).getValue());
         logger.println(engine.execute("(/ 2 2 2 2 2)", env).getValue());
-        logger.println(engine.execute("(^ 2 2 2)", env).getValue());
+        logger.println(engine.execute("(^ 2 2 2)", env).getValue()); // These are testing Math
+
         logger.println(engine.execute("(> 2 1)", env).getValue());
         logger.println(engine.execute("(> 1 2)", env).getValue());
         logger.println(engine.execute("(< 1 2)", env).getValue());
@@ -43,19 +46,24 @@ public class Main {
         logger.println(engine.execute("(<= 2 2)", env).getValue());
         logger.println(engine.execute("(>= 2 1)", env).getValue());
         logger.println(engine.execute("(> 2 2)", env).getValue());
-        logger.println(engine.execute("(< 2 2)", env).getValue());
+        logger.println(engine.execute("(< 2 2)", env).getValue()); // These are testing Boolean stuff
+
         logger.println(engine.execute("(car '(1 2 3 4 5 6 7 8 9))",env).getValue());
-        logger.println(engine.execute("(cdr '(1 2 3 4 5 6 7 8 9))",env).getValue());
-        logger.println(engine.execute("(+ 5 5) (+ 1 5)",env).getValue());
+        logger.println(engine.execute("(cdr '(1 2 3 4 5 6 7 8 9))",env).getValue()); // These are list
+
+        logger.println(engine.execute("(+ 5 5) (+ 1 5)",env).getValue()); // This is testing running 2 evals
+
         logger.println(engine.execute("(def v 1)",env).getValue());
-        logger.println(engine.execute("(eval '(+ 3 v))",env).getValue());
+        logger.println(engine.execute("(eval '(+ 3 v))",env).getValue()); //these are testing def/eval
+
         engine.execute("(defun averagenum (n1 n2 n3 n4) (/ ( + n1 n2 n3 n4) 4))",env);
         logger.println(engine.execute("(averagenum 10 20 30 40)",env));
-        logger.println(engine.execute("(eval '(averagenum 10 20 30 40))",env).getValue());
-        logger.println(engine.execute("(if (= 1 1) '(5) '(6))",env).getValue());
-        engine.execute("(print 5)",env);
+        logger.println(engine.execute("(eval '(averagenum 10 20 30 40))",env).getValue()); //testing a basic defun
+
+        logger.println(engine.execute("(if (= 1 1) '(5) '(6))",env).getValue()); //testing if
+
         logger.println("I am a line break! \n");
-        engine.execute("(defun write (a b &optional c d) (print (list a b c d)))",env);
+        engine.execute("(defun write (a b &optional c d) (print (list a b c d)))",env); //testing &optional
 
         //engine.execute("(write 1 2)",env);
         //engine.execute("(write 1 2 3 4 5 6 7 8 9 10)",env);
@@ -69,5 +77,8 @@ public class Main {
         //engine.execute("(print (print (zerop 0)))",env); //(print (+ 0 0)
         engine.execute("(let* ((n 1) (b 2)) (print (+ b n)))",env);
         //engine.execute("(print (zerop (+ 0 0))))",env);
+
+        //the graveyard of recursion, zerop, and default
+        //this has brought me much pain
     }
 }
