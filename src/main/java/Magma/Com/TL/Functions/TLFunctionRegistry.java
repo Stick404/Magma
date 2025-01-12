@@ -41,6 +41,7 @@ public class TLFunctionRegistry {
     public static final TLFunction LIST = make("list", new FunList());
     public static final TLFunction INDEX_OF = make("nth", new FunIndexOf());
     public static final TLFunction CONS = make("cons", new FunCons());
+    public static final TLFunction LENGTH = make("length", new FunLength());
 
     //Meta-evals (the Fun part of Lisp!)
     public static final TLFunction MAP = make("map", new FunMap());

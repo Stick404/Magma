@@ -4,7 +4,6 @@ import Magma.Com.TL.Core.Engine;
 import Magma.Com.TL.Core.TLEnvironment;
 
 import java.io.PrintStream;
-import java.util.logging.Logger;
 
 public class Main {
     public static void main(String[] args) throws Exception {
