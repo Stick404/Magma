@@ -19,10 +19,10 @@ public class Main {
         // I know this is really, *really* bad, but this works to test stuff
         // and I know Tests exist
 
-
-        LambdaTesting.init(logger);
-        LambdaTestingKT.INSTANCE.init(logger);
-
+        new TestMagma().init();
+        //LambdaTesting.init(logger);
+        //LambdaTestingKT.INSTANCE.init(logger);
+        /*
 
             logger.println("I am a line break!");
             logger.println(engine.execute("(+ 1 1)", env).getValue());
@@ -94,5 +94,6 @@ public class Main {
             //this has brought me much pain
         //engine.execute("(def fact (lambda (n) (if (<= n 1) 1 (* n (fact (- n 1))))))",env);
         //engine.execute("(print (fact 420))",env); //so this doesn't fail due to any code reason; just the Java Stack overflows...
+        */
     }
 }
