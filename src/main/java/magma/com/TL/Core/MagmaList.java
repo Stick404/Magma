@@ -20,11 +20,7 @@ public class MagmaList extends ArrayList<MagmaRoot<?>> implements MagmaRoot<Arra
 
     @Override
     public ArrayList<MagmaRoot<?>> getValue() {
-        ArrayList<MagmaRoot<?>> result = new ArrayList<>();
-        for (MagmaRoot<?> e : this) {
-            result.add((MagmaAtom<?>) e.getValue());
-        }
-        return result;
+        return new ArrayList<>(this);
     }
 
     @Override
