@@ -7,6 +7,11 @@ public class MagmaAtom<T> implements MagmaRoot<T> {
     //This is the basic Object of it
     protected T value;
     public MagmaAtom<T> of(T object){
+        //makes an atom out of T object
+        //so if you wanted to make a String Atom, you would do:
+        // `MagmaAtom<String> atom = new MagmaAtom<String>().of("STRING HERE");`
+
+
         MagmaAtom<T> atom = new MagmaAtom<>();
         atom.setValue(object);
         return atom;
@@ -20,13 +25,13 @@ public class MagmaAtom<T> implements MagmaRoot<T> {
         }
     }
 
-    private void setValue(T object){
+    public void setValue(T object){ //be *very* careful with this
         this.value = object;
     }
 
     @Override
-    public boolean asBoolean() {
-        return value != null || value.equals(false);
+    public boolean asBoolean() { //checks if the value is null, or if its false, returns false
+        return value != null && !value.equals(false);
     }
 
     public String toString() {
@@ -41,5 +46,11 @@ public class MagmaAtom<T> implements MagmaRoot<T> {
     @Override
     public int hashCode() {
         return value != null ? value.hashCode() : 0;
+    }
+
+    @Override
+    public MagmaAtom<T> clone() throws CloneNotSupportedException {
+        MagmaAtom<T> tMagmaAtom = (MagmaAtom<T>) super.clone();
+        return tMagmaAtom;
     }
 }
