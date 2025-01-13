@@ -11,6 +11,9 @@ public class Main {
         Engine engine = new Engine();
         TLEnvironment env = engine.defaultEnvironment();
 
+        // TODO: Make MagmaFunction use Trampoline
+        // TODO: Make Env have "depth" for when calling functions
+
         // TODO: Rework inner core to use a stack of Lambdas, rather then recursion, recursion, recursion, recursion. (making a stack, rather then using the stack)
         // TODO: Make a better system for Java-Level functions; possibly copy Hex Casting for this
 

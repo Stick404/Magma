@@ -1,14 +1,13 @@
 package magma.com;
 
-import magma.com.TL.Core.MagmaAtom;
-import magma.com.TL.Core.MagmaList;
+import magma.com.TL.Core.*;
+import magma.com.TL.Core.TL_OLD.TLEnvironment;
 
 public class TestMagma {
     public void init() {
-        MagmaAtom<String> atom1 = new MagmaAtom<String>().of("Hello World");
+        MagmaAtom<Integer> atom1 = new MagmaAtom<Integer>().of(5);
         MagmaAtom<String> atom2 = new MagmaAtom<String>().of("Testing Objects");
         MagmaAtom<Float> atom3 = new MagmaAtom<Float>().of(1F);
-        MagmaAtom<Integer> atom4 = new MagmaAtom<Integer>().of(1);
 
         MagmaList list = new MagmaList();
         list.add(atom1);
@@ -41,5 +40,16 @@ public class TestMagma {
         System.out.println(atomObject);
         atomObject.setValue(null);
         System.out.println(atomObject);
+
+        TLEnvironment env = new TLEnvironment();
+        Engine engine = new Engine();
+
+        MagmaFunction x = new MagmaFunction() {
+            @Override
+            protected MagmaRoot<Integer> execute(MagmaList args, TLEnvironment environment, Engine engine) {
+                return new MagmaAtom<Integer>().of(0);
+            }
+        };
+        Trampoline<MagmaRoot> z = x.invoke(list,env,engine);
     }
 }
