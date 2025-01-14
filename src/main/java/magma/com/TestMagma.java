@@ -50,6 +50,5 @@ public class TestMagma {
                 return new MagmaAtom<Integer>().of(0);
             }
         };
-        Trampoline<MagmaRoot> z = x.invoke(list,env,engine);
     }
 }

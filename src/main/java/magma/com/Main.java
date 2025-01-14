@@ -98,5 +98,7 @@ public class Main {
         //engine.execute("(def fact (lambda (n) (if (<= n 1) 1 (* n (fact (- n 1))))))",env);
         //engine.execute("(print (fact 420))",env); //so this doesn't fail due to any code reason; just the Java Stack overflows...
         */
+
+        LambdaTesting.init(logger);
     }
 }
