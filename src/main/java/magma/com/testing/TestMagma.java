@@ -1,4 +1,4 @@
-package magma.com;
+package magma.com.testing;
 
 import magma.com.TL.Core.*;
 import magma.com.TL.Core.TL_OLD.TLEnvironment;

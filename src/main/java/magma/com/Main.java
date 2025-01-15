@@ -2,6 +2,9 @@ package magma.com;
 
 import magma.com.TL.Core.Engine;
 import magma.com.TL.Core.TL_OLD.TLEnvironment;
+import magma.com.testing.LambdaTesting;
+import magma.com.testing.TestMagma;
+import magma.com.testing.WTFRecords;
 
 import java.io.PrintStream;
 
@@ -10,6 +13,8 @@ public class Main {
         PrintStream logger = System.out;
         Engine engine = new Engine();
         TLEnvironment env = engine.defaultEnvironment();
+
+        WTFRecords.init();
 
         // TODO: Make MagmaFunction use Trampoline
         // TODO: Make Env have "depth" for when calling functions
@@ -21,10 +26,6 @@ public class Main {
         // TODO: Add in more Lisp Functions
         // I know this is really, *really* bad, but this works to test stuff
         // and I know Tests exist
-
-        new TestMagma().init();
-        //LambdaTesting.init(logger);
-        //LambdaTestingKT.INSTANCE.init(logger);
         /*
 
             logger.println("I am a line break!");
@@ -99,6 +100,7 @@ public class Main {
         //engine.execute("(print (fact 420))",env); //so this doesn't fail due to any code reason; just the Java Stack overflows...
         */
 
-        LambdaTesting.init(logger);
+        //LambdaTesting.init(logger);
+        //new TestMagma().init();
     }
 }

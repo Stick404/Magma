@@ -1,4 +1,4 @@
-package magma.com;
+package magma.com.testing;
 
 import java.util.function.Supplier;
 
