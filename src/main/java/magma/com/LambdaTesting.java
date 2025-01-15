@@ -3,7 +3,8 @@ package magma.com;
 import magma.com.TL.Core.Engine;
 import magma.com.TL.Core.TL_OLD.TLEnvironment;
 import magma.com.TL.Core.TL_OLD.TLListExpression;
-import magma.com.Trampoline.Pure;
+import magma.com.TL.Core.Trampoline;
+import magma.com.TL.Core.Trampoline.Pure;
 
 import java.io.PrintStream;
 import java.math.BigInteger;

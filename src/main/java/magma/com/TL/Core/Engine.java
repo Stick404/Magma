@@ -25,7 +25,6 @@ public class Engine {
      *
     */
 
-
     //converts an object into an Atom readable by the Interpreter
     public static TLAtomExpression<?> expressionOf(Object value) {
         if (value == null) {
